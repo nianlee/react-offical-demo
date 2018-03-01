@@ -1,61 +1,38 @@
 import React, { Component } from 'react'
-// import Square from './square'
-
-function Square(props) {
-  return (
-    <button
-      className="square" 
-      style = { props.style }
-      onClick={ props.onClick }>
-        { props.value }
-    </button>
-  )
-}
+import Square from './square'
 
 class Board extends Component {
+  
   renderSquare(i) {
-    const winners = this.props.winners;
-    let isInWinners = false;
-    if (winners) {
-      isInWinners = winners.indexOf(i) > -1
-    }
-
-    const winnerStyle = {
-      color:  isInWinners ? 'red' : '',
-    }
-
     return (
       <Square 
-        key={ i }
-        value={ this.props.squares[i] } 
-        onClick={ this.props.onClick.bind(this, i) }
-        style={ winnerStyle }
+        value={this.props.squares[i]}
+        changeX={ () => { this.props.changeX(i) } }
       />
     )
-  }
-
-  renderBoardRow() {
-    let rows = []
-    for(let i=0; i < 3; i++) {
-      let rowContent = []
-      const index = i * 3;
-      for(let x = index; x < index+3; x++) {
-        rowContent.push(this.renderSquare(x))
-      }
-      rows.push((
-        <div key={ i } className="board-row">{ rowContent }</div>
-      ))
-    }
-    return rows
   }
 
   render() {
     return (
       <div>
-        { this.renderBoardRow() }
+        <div className="board-row">
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+        </div>
       </div>
-    )
+    );
   }
 }
 
-export default Board;
+export default Board
